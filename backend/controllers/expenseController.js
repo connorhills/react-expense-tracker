@@ -1,4 +1,3 @@
-
 const xlsx = require('xlsx');
 const Expense = require("../models/Expense");
 
@@ -7,17 +6,17 @@ exports.addExpense = async (req, res) => {
     const userId = req.user.id;
 
     try {
-        const { icon, category, amount, date } = req.body;
+        const { icon, description, amount, date } = req.body;
 
         // Validation: Check for missing fields
-        if (!category || !amount || !date) {
+        if (!description || !amount || !date) {
             return res.status(400).json({ message: "All fields are required" });
         }
 
         const newExpense = new Expense({
             userId,
             icon,
-            category,
+            description,
             amount,
             date: new Date(date)
         });
@@ -60,7 +59,7 @@ exports.downloadExpenseExcel = async (req, res) => {
 
         // Prepare data for Excel
         const data = expense.map((item) => ({
-            Category: item.category,
+            Description: item.description, 
             Amount: item.amount,
             Date: item.date,
         }));
@@ -73,5 +72,5 @@ exports.downloadExpenseExcel = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: "Server Error" });
     }
- }
+}
 

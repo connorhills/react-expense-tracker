@@ -19,9 +19,9 @@ const TransactionInfoCard = ({
     type === "income" ? "bg-green-950 text-green-500" : "bg-red-950/80 text-red-500";
   return (
     <div className="group relative flex items-center gap-4 mt-2 p-3 rounded-lg hover:bg-blue-400/20">
-      <div className="w-12 h-12 flex items-center justify-center text-xl text-secondary bg-blue-400 outline-3 outline-blue-900 rounded-full">
+      <div className="w-15 h-15 flex items-center justify-center text-xl text-secondary bg-blue-100 border-3 border-primary rounded-full">
         {icon ? (
-          <img src={icon} alt={title} className="w-6 h-6" />
+          <img src={icon} alt={title} className="w-8 h-8" />
         ) : (
           <LuUtensils />
         )}

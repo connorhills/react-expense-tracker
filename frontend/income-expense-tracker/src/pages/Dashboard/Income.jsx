@@ -8,8 +8,10 @@ import AddIncomeForm from "../../components/Income/AddIncomeForm";
 import toast from "react-hot-toast";
 import IncomeList from "../../components/Income/IncomeList";
 import DeleteAlert from "../../components/DeleteAlert";
+import { useUserAuth } from "../../hooks/useUserAuth";
 
 const Income = () => {
+  useUserAuth();
   const [incomeData, setIncomeData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openDeleteAlert, setOpenDeleteAlert] = useState({
@@ -19,8 +21,8 @@ const Income = () => {
 
   const [openAddIncomeModal, setOpenAddIncomeModal] = useState(false);
 
-  // Get All Income Details
-  const fetchIncomeDetails = async () => {
+  // Get All Income Transactions
+  const fetchIncomeTransactions = async () => {
     if (loading) return;
 
     setLoading(true);
@@ -70,7 +72,7 @@ const Income = () => {
 
       setOpenAddIncomeModal(false);
       toast.success("Income Added Successfully.");
-      fetchIncomeDetails();
+      fetchIncomeTransactions();
     } catch (error) {
       console.error(
         "Error adding income:",
@@ -86,7 +88,7 @@ const Income = () => {
 
       setOpenDeleteAlert({ show: false, data: null });
       toast.success("Income details deleted successfully");
-      fetchIncomeDetails();
+      fetchIncomeTransactions();
     } catch (error) {
       console.error(
         "Error deleting income:",
@@ -95,11 +97,33 @@ const Income = () => {
     }
   };
 
-  // Handle Download Income Details
-  const handleDownloadIncomeDetails = async () => {};
+  // Handle Download Income Transactions
+  const handleDownloadIncomeTransactions = async () => {
+    try {
+      const response = await axiosInstance.get(
+        API_PATHS.INCOME.DOWNLOAD_INCOME,
+        {
+          responseType: "blob",
+        }
+      );
+
+      // Create a URL for the blob
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "income_transactions.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading income transactions:", error);
+      toast.error("Failed to download income transactions. Please try again.");
+    }
+  };
 
   useEffect(() => {
-    fetchIncomeDetails();
+    fetchIncomeTransactions();
 
     return () => {};
   }, []);
@@ -120,7 +144,7 @@ const Income = () => {
             onDelete={(id) => {
               setOpenDeleteAlert({ show: true, data: id });
             }}
-            onDownload={handleDownloadIncomeDetails}
+            onDownload={handleDownloadIncomeTransactions}
           />
         </div>
         <Modal

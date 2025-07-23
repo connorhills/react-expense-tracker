@@ -4,7 +4,7 @@ import moment from "moment";
 import TransactionInfoCard from "../Cards/TransactionInfoCard";
 
 const RecentTransactions = ({ transactions, onSeeMore }) => {
-  console.log("RecentTransactions received:", transactions); // Debug log
+  console.log("RecentTransactions received:", transactions); 
 
   return (
     <div className="card">
@@ -19,13 +19,13 @@ const RecentTransactions = ({ transactions, onSeeMore }) => {
       <div className="mt-6">
         {transactions && transactions.length > 0 ? (
           transactions
-            .slice(0, 5)
+            .slice(0, 4)
             .map((item) => (
               <TransactionInfoCard
                 key={item._id}
-                title={item.type === "expense" ? item.category : item.source}
+                title={item.type === "expense" ? item.description : item.source}
                 icon={item.icon}
-                date={moment(item.date).format("Do MMM YYYY")}
+                date={moment(item.date).format("MMMM D, YYYY")}
                 amount={item.amount}
                 type={item.type}
                 hideDeleteBtn

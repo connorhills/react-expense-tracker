@@ -33,7 +33,11 @@ const CustomBarChart = ({ data, showName = true, showDate = false }) => {
               className="text-xs font-semibold mb-1"
               style={{ color: bgColor }}
             >
-              {entry.source ? entry.source : "Income"}
+              {entry.source
+                ? entry.source
+                : entry.category
+                ? entry.category
+                : "Income"}
             </p>
           )}
           <p className="text-sm text-secondary">
@@ -54,12 +58,21 @@ const CustomBarChart = ({ data, showName = true, showDate = false }) => {
   };
 
   return (
-    <div className="bg-background-color-1 mt-6">
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={data}>
+    <div className="bg-barchart-background mt-3 py-3">
+      <ResponsiveContainer width="100%" height={335}>
+        <BarChart
+          data={data}
+          margin={{ top: 10, right: 20, left: -10, bottom: -5 }}
+        >
           <CartesianGrid stroke="none" />
           <XAxis
-            dataKey={showDate ? "date" : "month"}
+            dataKey={
+              data.length && data[0].source
+                ? "source"
+                : data.length && data[0].date
+                ? "date"
+                : "month"
+            }
             tick={{ fontSize: 12, fill: "#d9d9d9" }}
             stroke="none"
           />

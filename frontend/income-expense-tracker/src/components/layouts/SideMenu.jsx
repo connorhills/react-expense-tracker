@@ -6,7 +6,7 @@ import CharAvatar from "../Cards/CharAvatar";
 
 const SideMenu = ({
   activeMenu,
-  className = "hidden lg:block w-64 h-[calc(100vh-62px)] bg-background-color border-r border-secondary p-5 sticky top-[62px] z-20",
+  className = "hidden lg:block w-64 h-[calc(100vh-62px)] bg-background-color border-r border-blue-300 p-5 sticky top-[62px] z-20",
 }) => {
   const { user, clearUser } = useContext(UserContext);
 
@@ -53,10 +53,10 @@ const SideMenu = ({
       {SIDE_MENU_DATA.map((item, index) => (
         <button
           key={`menu_${index}`}
-          className={`w-full flex items-center gap-4 text-[15px] ${
+          className={`w-full flex items-center gap-4 text-[15px] cursor-pointer ${
             activeMenu === item.label
               ? "text-white bg-primary"
-              : "text-gray-300/50 hover:bg-gray-400/20"
+              : "text-gray-300/80 hover:bg-gray-400/20"
           } py-3 px-6 rounded-lg mb-3`}
           onClick={() => handleClick(item.path)}
         >

@@ -5,9 +5,9 @@ import SideMenu from "./SideMenu";
 const Navbar = ({ activeMenu }) => {
   const [openSideMenu, setOpenSideMenu] = useState(false);
   return (
-    <div className="flex gap-7 bg-background-color-1 border-b-2 border-secondary py-4 px-8 sticky top-0 z-30">
+    <div className="flex gap-7 bg-background-color-1 border-b-2 border-blue-300 py-4 px-8 sticky top-0 z-30">
       <button
-        className="block lg:hidden text-secondary"
+        className="block lg:hidden text-secondary cursor-pointer"
         onClick={() => {
           setOpenSideMenu(!openSideMenu);
         }}
@@ -19,12 +19,12 @@ const Navbar = ({ activeMenu }) => {
         )}
       </button>
 
-      <h2 className="text-lg font-medium text-secondary">Expense Tracker</h2>
+      <h2 className="text-lg font-medium text-blue-50">Expense Tracker</h2>
 
       {openSideMenu && (
         <SideMenu
           activeMenu={activeMenu}
-          className="block fixed top-[62px] left-0 w-64 h-[calc(100vh-62px)] z-30 bg-background-color-1 border-r border-secondary p-5"
+          className="block fixed top-[62px] left-0 w-64 h-[calc(100vh-62px)] z-30 bg-background-color-1 border-r border-blue-300 p-5"
         />
       )}
     </div>

@@ -5,7 +5,7 @@ import SideMenu from "./SideMenu";
 
 const DashboardLayout = ({ children, activeMenu }) => {
   const { user } = useContext(UserContext);
-  console.log("User context value:", user); // Add this line
+  console.log("User context value:", user); 
   return (
     <div className="">
       <Navbar activeMenu={activeMenu} />
