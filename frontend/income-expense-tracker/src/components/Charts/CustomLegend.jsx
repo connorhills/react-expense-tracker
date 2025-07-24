@@ -2,7 +2,7 @@ import React from "react";
 
 const CustomLegend = ({ payload }) => {
   return (
-    <div className="flex flex-wrap justify-center gap-2">
+    <div className="flex flex-wrap justify-center space-x-6">
       {payload.map((entry, index) => (
         <div key={`legend-${index}`} className="flex items-center space-x-2">
           <div

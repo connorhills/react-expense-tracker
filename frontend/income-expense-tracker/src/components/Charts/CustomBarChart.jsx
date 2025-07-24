@@ -37,6 +37,8 @@ const CustomBarChart = ({ data, showName = true, showDate = false }) => {
                 ? entry.source
                 : entry.category
                 ? entry.category
+                : entry.description
+                ? entry.description
                 : "Income"}
             </p>
           )}

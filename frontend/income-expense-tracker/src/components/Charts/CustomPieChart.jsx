@@ -19,7 +19,7 @@ const CustomPieChart = ({
   showTextAnchor,
 }) => {
   const [activeIndex, setActiveIndex] = useState(null);
-  
+
   const renderActiveShape = (props) => {
     return (
       <Sector
@@ -44,9 +44,9 @@ const CustomPieChart = ({
           dataKey="amount"
           nameKey="name"
           cx="50%"
-          cy={150}
-          outerRadius={140}
-          innerRadius={90}
+          cy={165}
+          outerRadius={160}
+          innerRadius={100}
           labelLine={false}
           stroke="#000"
           strokeWidth={6}
@@ -66,7 +66,7 @@ const CustomPieChart = ({
           <>
             <text
               x="50%"
-              y={145}
+              y={160}
               textAnchor="middle"
               fill="#ffffff"
               fontSize="14px"
@@ -75,7 +75,7 @@ const CustomPieChart = ({
             </text>
             <text
               x="50%"
-              y={175}
+              y={190}
               textAnchor="middle"
               fill="#c9c9c9"
               fontSize="24px"
