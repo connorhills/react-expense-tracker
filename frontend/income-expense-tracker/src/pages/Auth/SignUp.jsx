@@ -102,7 +102,7 @@ const SignUp = () => {
               placeholder="johnsmith@gmail.com"
               type="text"
             />
-            <div className="col-span-2">
+            <div className="md:col-span-2">
               <Input
                 value={password}
                 onChange={({ target }) => setPassword(target.value)}
@@ -119,7 +119,7 @@ const SignUp = () => {
             SIGN UP
           </button>
 
-          <p className="text-[13px] text-slate-200 mt-3">
+          <p className="text-[13px] text-slate-200 mb-5 mt-4">
             Already have an account?{" "}
             <Link className="font-medium text-primary underline" to="/login">
               Login
