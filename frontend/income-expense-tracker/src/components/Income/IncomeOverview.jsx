@@ -45,7 +45,7 @@ const IncomeOverview = ({ transactions, onAddIncome }) => {
         </button>
       </div>
       <div className="mt-6">
-        <CustomLineChart data={chartData} showName={false} showDate={true} />
+        <CustomLineChart data={chartData} showName={true} showDate={true} />
       </div>
     </div>
   );

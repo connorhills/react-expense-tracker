@@ -38,7 +38,11 @@ const CustomLineChart = ({ data }) => {
           style={{ backgroundColor: "#101010", borderColor: bgColor }}
         >
           <p className="text-xs font-semibold mb-1" style={{ color: bgColor }}>
-            {entry.description ? entry.description : "Expense"}
+            {entry.source
+              ? entry.source
+              : entry.description
+                ? entry.description
+                : "Income"}
           </p>
           <p className="text-sm text-secondary">
             Amount:{" "}
