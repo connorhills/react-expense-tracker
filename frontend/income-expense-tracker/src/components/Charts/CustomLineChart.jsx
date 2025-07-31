@@ -59,12 +59,17 @@ const CustomLineChart = ({ data }) => {
     return null;
   };
 
+  const isMobile = tickFontSize <= 10;
+  const chartData = isMobile
+    ? dataWithIndex.slice(-5)
+    : dataWithIndex;
+
   return (
     <div className="bg-background-color-1 p-4 border border-blue-500/40 shadow-md/30 shadow-primary rounded-2xl">
       <ResponsiveContainer width="100%" height={300}>
         <AreaChart
-          data={dataWithIndex}
-          margin={{ left: -15, right: 0, top: 5, bottom: 0 }} // <-- Add this line
+          data={chartData}
+          margin={{ left: -15, right: 0, top: 5, bottom: 0 }}
         >
           <defs>
             <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">

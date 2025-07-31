@@ -11,15 +11,29 @@ const IncomeOverview = ({ transactions, onAddIncome }) => {
 
   useEffect(() => {
     const result = prepareIncomeBarChartData(transactions);
-    setChartData(result);
 
-    if (transactions && transactions.length > 0) {
-      const sorted = [...transactions].sort(
-        (a, b) => new Date(a.date) - new Date(b.date)
-      );
-      const start = moment(sorted[0].date).format("MMM D, YYYY");
-      const end = moment(sorted[sorted.length - 1].date).format("MMM D, YYYY");
-      setDateRange(`${start} - ${end}`);
+    // Detect mobile using window width
+    const isMobile = window.innerWidth < 640;
+    const visibleData = isMobile ? result.slice(-5) : result;
+
+    setChartData(visibleData);
+
+    if (visibleData && visibleData.length > 0) {
+      // Find the corresponding original transaction objects for start/end dates
+      const sortedOriginal = [...transactions]
+        .sort((a, b) => new Date(a.date) - new Date(b.date));
+      // Get the indexes of the visible data in the original array
+      const startIdx = transactions.length - visibleData.length;
+      const startDate = sortedOriginal[startIdx]?.date;
+      const endDate = sortedOriginal[transactions.length - 1]?.date;
+
+      if (startDate && endDate) {
+        const start = moment(startDate).format("MMM D, YYYY");
+        const end = moment(endDate).format("MMM D, YYYY");
+        setDateRange(`${start} - ${end}`);
+      } else {
+        setDateRange("");
+      }
     } else {
       setDateRange("");
     }
