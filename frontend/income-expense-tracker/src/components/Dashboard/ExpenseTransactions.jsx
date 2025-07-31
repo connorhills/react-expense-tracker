@@ -15,17 +15,23 @@ const ExpenseTransactions = ({ transactions, onSeeMore }) => {
       </div>
 
       <div className="mt-6">
-        {transactions?.slice(0, 4)?.map((expense) => (
-          <TransactionInfoCard
-            key={expense._id}
-            title={expense.description}
-            icon={expense.icon}
-            date={moment(expense.date).format("MMMM D, YYYY")}
-            amount={expense.amount}
-            type="expense"
-            hideDeleteBtn
-          />
-        ))}
+        {transactions && transactions.length > 0 ? (
+          transactions.slice(0, 4).map((expense) => (
+            <TransactionInfoCard
+              key={expense._id}
+              title={expense.description}
+              icon={expense.icon}
+              date={moment(expense.date).format("MMMM D, YYYY")}
+              amount={expense.amount}
+              type="expense"
+              hideDeleteBtn
+            />
+          ))
+        ) : (
+          <div className="text-center py-10 text-gray-400">
+            No expenses to display.
+          </div>
+        )}
       </div>
     </div>
   );

@@ -5,11 +5,9 @@ import {
   Cell,
   Tooltip,
   ResponsiveContainer,
-  Legend,
-  Sector, 
+  Sector,
 } from "recharts";
 import CustomTooltip from "./CustomTooltip";
-import CustomLegend from "./CustomLegend";
 
 const CustomPieChart = ({
   data,
@@ -60,7 +58,6 @@ const CustomPieChart = ({
           ))}
         </Pie>
         <Tooltip content={CustomTooltip} />
-        <Legend content={CustomLegend} />
 
         {showTextAnchor && (
           <>
@@ -69,17 +66,21 @@ const CustomPieChart = ({
               y={160}
               textAnchor="middle"
               fill="#ffffff"
-              fontSize="14px"
+              fontSize="20px"
             >
               {label}
             </text>
             <text
               x="50%"
-              y={190}
+              y={200}
               textAnchor="middle"
-              fill="#c9c9c9"
-              fontSize="24px"
-              fontWeight="semi-bold"
+              fill={
+                parseFloat(totalAmount.toString().replace(/[^0-9.-]+/g, "")) < 0
+                  ? "#FF4C4C"
+                  : "#77DD77"
+              }
+              fontSize="40px"
+              fontWeight="bold"
             >
               {totalAmount}
             </text>

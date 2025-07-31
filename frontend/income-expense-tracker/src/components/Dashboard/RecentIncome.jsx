@@ -14,17 +14,23 @@ const RecentIncome = ({ transactions, onSeeMore }) => {
         </button>
       </div>
       <div className="mt-6">
-        {transactions?.slice(0, 4)?.map((item) => (
-          <TransactionInfoCard
-            key={item._id}
-            title={item.source}
-            icon={item.icon}
-            date={moment(item.date).format("MMMM D, YYYY")}
-            amount={item.amount}
-            type="income"
-            hideDeleteBtn
-          />
-        ))}
+        {transactions && transactions.length > 0 ? (
+          transactions.slice(0, 4).map((item) => (
+            <TransactionInfoCard
+              key={item._id}
+              title={item.source}
+              icon={item.icon}
+              date={moment(item.date).format("MMMM D, YYYY")}
+              amount={item.amount}
+              type="income"
+              hideDeleteBtn
+            />
+          ))
+        ) : (
+          <div className="text-center py-10 text-gray-400">
+            No income to display.
+          </div>
+        )}
       </div>
     </div>
   );

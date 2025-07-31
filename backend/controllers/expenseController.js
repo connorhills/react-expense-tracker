@@ -41,7 +41,7 @@ exports.getAllExpense = async (req, res) => {
 };
 
 // Delete Expense Source  
-exports.deleteExpense = async (req, res) => { 
+exports.deleteExpense = async (req, res) => {
     try {
         await Expense.findByIdAndDelete(req.params.id);
         res.json({ message: "Income deleted successfully" });
@@ -59,13 +59,21 @@ exports.downloadExpenseExcel = async (req, res) => {
 
         // Prepare data for Excel
         const data = expense.map((item) => ({
-            Description: item.description, 
+            Description: item.description,
             Amount: item.amount,
             Date: item.date,
         }));
 
         const wb = xlsx.utils.book_new();
         const ws = xlsx.utils.json_to_sheet(data);
+
+        // Set column widths in characters for xlsx
+        ws['!cols'] = [
+            { wch: 20 }, // Description 
+            { wch: 10 }, // Amount 
+            { wch: 15 }, // Date 
+        ];
+
         xlsx.utils.book_append_sheet(wb, ws, "Expense");
         xlsx.writeFile(wb, 'expense.xlsx');
         res.download('expense.xlsx');

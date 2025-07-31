@@ -36,7 +36,7 @@ const TransactionInfoCard = ({
         <div className="flex items-center gap-2">
           {!hideDeleteBtn && (
             <button
-              className="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+              className="text-gray-400 hover:text-red-500 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity cursor-pointer"
               onClick={onDelete}
             >
               <LuTrash2 size={18} />

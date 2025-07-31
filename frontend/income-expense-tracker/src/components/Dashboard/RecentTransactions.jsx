@@ -4,7 +4,7 @@ import moment from "moment";
 import TransactionInfoCard from "../Cards/TransactionInfoCard";
 
 const RecentTransactions = ({ transactions, onSeeMore }) => {
-  console.log("RecentTransactions received:", transactions); 
+  console.log("RecentTransactions received:", transactions);
 
   return (
     <div className="card">
@@ -32,9 +32,9 @@ const RecentTransactions = ({ transactions, onSeeMore }) => {
               />
             ))
         ) : (
-          <p className="text-gray-400 text-center py-4">
-            No transactions found
-          </p>
+          <div className="text-center py-10 text-gray-400">
+            No transactions to display.
+          </div>
         )}
       </div>
     </div>

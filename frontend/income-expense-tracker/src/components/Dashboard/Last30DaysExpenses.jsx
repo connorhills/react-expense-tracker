@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { prepareExpenseBarChartData } from "../../utils/helper";
 import CustomBarChart from "../Charts/CustomBarChart";
-import moment from "moment"; 
+import moment from "moment";
 
 const Last30DaysExpenses = ({ data }) => {
   const [chartData, setChartData] = useState([]);
@@ -10,7 +10,7 @@ const Last30DaysExpenses = ({ data }) => {
   useEffect(() => {
     let result = prepareExpenseBarChartData(data);
     result = result.sort((a, b) => new Date(a.date) - new Date(b.date));
-    setChartData([...result]); 
+    setChartData([...result]);
 
     if (data && data.length > 0) {
       const sorted = [...data].sort(
@@ -23,7 +23,7 @@ const Last30DaysExpenses = ({ data }) => {
       setDateRange("");
     }
 
-    return () => {};
+    return () => { };
   }, [data]);
 
   return (
@@ -34,7 +34,13 @@ const Last30DaysExpenses = ({ data }) => {
       {dateRange && (
         <p className="text-xs text-gray-400 mt-1 mb-2">{dateRange}</p>
       )}
-      <CustomBarChart data={chartData} showName={true} showDate={false} />
+      {chartData && chartData.length > 0 ? (
+        <CustomBarChart data={chartData} showName={true} showDate={false} />
+      ) : (
+        <div className="text-center py-10 text-gray-400">
+          No expense data to display.
+        </div>
+      )}
     </div>
   );
 };

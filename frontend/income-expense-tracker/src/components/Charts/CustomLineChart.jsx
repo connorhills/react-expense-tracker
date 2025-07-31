@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   XAxis,
   YAxis,
@@ -10,6 +10,23 @@ import {
 } from "recharts";
 
 const CustomLineChart = ({ data }) => {
+  // Add unique id and index to each entry
+  const [tickFontSize, setTickFontSize] = useState(window.innerWidth < 640 ? 9 : 12);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setTickFontSize(window.innerWidth < 640 ? 10 : 12);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const dataWithIndex = data.map((entry, idx) => ({
+    ...entry,
+    id: entry.id ?? idx,
+    index: idx,
+  }));
+
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       const entry = payload[0].payload;
@@ -17,11 +34,11 @@ const CustomLineChart = ({ data }) => {
 
       return (
         <div
-          className="shadow-md rounded-lg p-2 border"
+          className="shadow-md rounded-lg p-1 border"
           style={{ backgroundColor: "#101010", borderColor: bgColor }}
         >
           <p className="text-xs font-semibold mb-1" style={{ color: bgColor }}>
-            {entry.category ? entry.category : "Expense"}
+            {entry.description ? entry.description : "Expense"}
           </p>
           <p className="text-sm text-secondary">
             Amount:{" "}
@@ -37,10 +54,14 @@ const CustomLineChart = ({ data }) => {
     }
     return null;
   };
+
   return (
-    <div className="bg-background-color-1 py-2">
+    <div className="bg-background-color-1 p-4 border border-blue-500/40 shadow-md/30 shadow-primary rounded-2xl">
       <ResponsiveContainer width="100%" height={300}>
-        <AreaChart data={data}>
+        <AreaChart
+          data={dataWithIndex}
+          margin={{ left: -15, right: 0, top: 5, bottom: 0 }} // <-- Add this line
+        >
           <defs>
             <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#03a1fc" stopOpacity={0.6} />
@@ -50,11 +71,15 @@ const CustomLineChart = ({ data }) => {
 
           <CartesianGrid stroke="none" />
           <XAxis
-            dataKey="month"
-            tick={{ fontSize: 12, fill: "#d9d9d9" }}
+            dataKey="id"
+            tickFormatter={(id) => {
+              const entry = dataWithIndex.find((e) => e.id === id);
+              return entry?.month || entry?.date || "";
+            }}
+            tick={{ fontSize: tickFontSize, fill: "#d9d9d9" }}
             stroke="none"
           />
-          <YAxis tick={{ fontSize: 12, fill: "#d9d9d9" }} stroke="none" />
+          <YAxis tick={{ fontSize: 12, fill: "#d9d9d9", dx: -15 }} stroke="none" />
           <Tooltip content={<CustomTooltip />} />
 
           <Area

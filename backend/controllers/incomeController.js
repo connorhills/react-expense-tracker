@@ -1,4 +1,3 @@
-
 const xlsx = require('xlsx');
 const Income = require("../models/Income");
 
@@ -42,7 +41,7 @@ exports.getAllIncome = async (req, res) => {
 };
 
 // Delete Income Source  
-exports.deleteIncome = async (req, res) => { 
+exports.deleteIncome = async (req, res) => {
     try {
         await Income.findByIdAndDelete(req.params.id);
         res.json({ message: "Income deleted successfully" });
@@ -67,11 +66,19 @@ exports.downloadIncomeExcel = async (req, res) => {
 
         const wb = xlsx.utils.book_new();
         const ws = xlsx.utils.json_to_sheet(data);
+
+        // Set column widths in characters for xlsx
+        ws['!cols'] = [
+            { wch: 20 }, // Source
+            { wch: 10 }, // Amount
+            { wch: 15 }, // Date
+        ];
+
         xlsx.utils.book_append_sheet(wb, ws, "Income");
         xlsx.writeFile(wb, 'income_details.xlsx');
         res.download('income_details.xlsx');
     } catch (error) {
         res.status(500).json({ message: "Server Error" });
     }
- }
+}
 

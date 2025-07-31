@@ -12,11 +12,16 @@ const storage = multer.diskStorage({
 
 // File filter
 const fileFilter = (req, file, cb) => {
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    const allowedTypes = [
+        'image/jpeg',
+        'image/png',
+        'image/jpg',
+        'image/heic' // Add HEIC support
+    ];
     if (allowedTypes.includes(file.mimetype)) {
         cb(null, true);
     } else {
-        cb(new Error('Only .jpeg, .jpg and .png formats are allowed'), false);
+        cb(new Error('Only .jpeg, .jpg, .png, and .heic formats are allowed'), false);
     }
 };
 
